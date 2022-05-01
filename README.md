@@ -32,9 +32,11 @@ Once the component has been installed, you need to configure it in order to make
 
 - Edit the `configuration.yaml` file
 ```
-sfrtv:
-  - host: <YOUR DECODER IP ADDRES>
-    ...
+
+media_player:
+ - platform: sfrtv
+   name: decodeur SFR
+   host: <YOUR DECODER IP ADDRES>
 ```
 # Sources
 As the websocket interface of the decoder does not allow to obtain the list of channels, I created a source.json file in the sfrtv folder.
