@@ -1,4 +1,56 @@
-# sfrtvctl
+# Custom component
+This is a custom component to allow control of SFR TV decoder 7 in HomeAssistant. 
+
+This project is a fork of dragouf/SFRTV I use  the remote.py file from this project.
+
+# Manual installation
+
+
+
+Install it as you would do with any homeassistant custom component:
+
+1. Download `custom_components` folder.
+1. Copy the `sfrtv` directory within the `custom_components` directory of your homeassistant installation. The `custom_components` directory resides within your homeassistant configuration directory.
+**Note**: if the custom_components directory does not exist, you need to create it.
+After a correct installation, your configuration directory should look like the following.
+    ```
+    └── ...
+    └── configuration.yaml
+    └── custom_components
+        └── sfrtv
+            └── __init__.py
+            └── exceptions.py
+            └── manifest.json
+            └── media_player.py
+            └── remote.py
+            └── sources.json
+   ```
+
+# Configuration
+
+Once the component has been installed, you need to configure it in order to make it work.
+
+- Edit the `configuration.yaml` file
+```
+sfrtv:
+  - host: <YOUR DECODER IP ADDRES>
+    ...
+```
+# Sources
+As the websocket interface of the decoder does not allow to obtain the list of channels, I created a source.json file in the sfrtv folder.
+You can modify it with your own channels (which depends on your subscription).
+
+It is important to respect the exact name returned by the decoder (upper case, lower case)
+Warning: For the display of the channel on the decoder everything is converted to uppercase
+
+# limitation
+
+Due to a bug on the websocket of the decoder, it appears `power off` when you go to the lower menus: Jeux replay enregistrements...
+
+--------------------------------------------------------------
+--------------------------------------------------------------
+
+# sfrtvctl (original works of dragouf)
 
 python library which can also be use in command line.
 
