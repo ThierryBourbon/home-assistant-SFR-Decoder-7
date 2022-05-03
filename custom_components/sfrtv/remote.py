@@ -98,7 +98,7 @@ class Remote():
             self.connection = None
             logging.debug("Connection closed.")
 
-    def control(self, key, keyArg1, keyArg2):
+    def control(self, key, keyarg1, keyarg2):
         """Send a control command."""
         if not self.connection:
             logging.info("websocket connection was closed, reopen it")
@@ -107,44 +107,42 @@ class Remote():
 
         if key == "BUTTONEVENT":
             # need a second argument which should be from _buttonEventmappings dic
-            if keyArg1 in _buttonEventmappings:
-                if keyArg1 != "NUMBER":
-                    _mappings[key]["Params"]["Press"][0] = _buttonEventmappings[keyArg1]
+            if keyarg1 in _buttonEventmappings:
+                if keyarg1 != "NUMBER":
+                    _mappings[key]["Params"]["Press"][0] = _buttonEventmappings[keyarg1]
                 else:
-                    _mappings[key]["Params"]["Press"][0] = ord(keyArg2)
+                    _mappings[key]["Params"]["Press"][0] = ord(keyarg2)
             else:
                 logging.warn("BUTTONEVENT argument was missing")
-        elif key == "ZAP" and keyArg1.isdigit():
-            _mappings[key]["Params"]["Params"][0] = int(keyArg1)
-        elif key == "APP" and keyArg1 in _appKeymappings:
-            _mappings[key]["Params"]["AppName"] = _appKeymappings[keyArg1]
-        elif key == "SETVOLUME" and keyArg1.isdigit():
-            _mappings[key]["Params"]["Level"] = int(keyArg1)
-        elif key == "KEYBOARD" and keyArg1 in _keyboardEventmappings:
-            if keyArg1 == "SEARCH":
-                _mappings[key]["Params"]["Press"][0] = _keyboardEventmappings[keyArg1]
+        elif key == "ZAP" and keyarg1.isdigit():
+            _mappings[key]["Params"]["Params"][0] = int(keyarg1)
+        elif key == "APP" and keyarg1 in _appKeymappings:
+            _mappings[key]["Params"]["AppName"] = _appKeymappings[keyarg1]
+        elif key == "SETVOLUME" and keyarg1.isdigit():
+            _mappings[key]["Params"]["Level"] = int(keyarg1)
+        elif key == "KEYBOARD" and keyarg1 in _keyboardEventmappings:
+            if keyarg1 == "SEARCH":
+                _mappings[key]["Params"]["Press"][0] = _keyboardEventmappings[keyarg1]
             else:
                 # the utf8 decimal value of the key
-                _mappings[key]["Params"]["Press"][0] = ord(keyArg2)
+                _mappings[key]["Params"]["Press"][0] = ord(keyarg2)
 
-        jsonTrame = _mappings[key]
+        jsontrame = _mappings[key]
 
-        payload = json.dumps(jsonTrame)
+        payload = json.dumps(jsontrame)
 
-        logging.debug("Sending command: %s", jsonTrame)
+        logging.debug("Sending command: %s", jsontrame)
+
         self.connection.send(payload)
-        time.sleep(self._key_interval)
-
-        response = self.connection.recv()
-        response = json.loads(response)
-        return response
+#        time.sleep(self._key_interval)
 
 
 
-    def _read_response(self):
-        response = self.connection.recv()
-        response = json.loads(response)
 
+
+    def read_response(self):
+        """ return state"""
+        response = json.loads(self.connection.recv())
         logging.debug("recv reponse: %s", response)
 
         return response
