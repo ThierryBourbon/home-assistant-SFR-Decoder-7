@@ -156,7 +156,7 @@ class SfrTVDevice(MediaPlayerEntity):
     def send_key(self, key, keyarg1, keyarg2):
         """Send a key to the tv and handles exceptions."""
         _LOGGER.debug("Sending command: %s %s %s", key, keyarg1, keyarg2)
-        if self._power_off_in_progress() and not (key in ('POWER', 'GETINFO')):
+        if self._power_off_in_progress() and not (key == 'GETINFO') and not (keyarg1 == 'POWER'):
             _LOGGER.info("TV is powering off, not sending command: %s  ", key)
             return
         try:
