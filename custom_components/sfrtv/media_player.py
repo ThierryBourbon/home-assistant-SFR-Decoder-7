@@ -12,24 +12,10 @@ from . import exceptions
 from datetime import timedelta
 from . remote import Remote
 from homeassistant.util import dt as dt_util
-try:
-    from homeassistant.components.media_player import MediaPlayerEntity, PLATFORM_SCHEMA
-except ImportError:
-    from homeassistant.components.media_player import MediaPlayerDevice as MediaPlayerEntity, PLATFORM_SCHEMA
-
+from homeassistant.components.media_player import MediaPlayerEntity, PLATFORM_SCHEMA
 from homeassistant.components.media_player.const import (
+    MediaPlayerEntityFeature,
     MEDIA_TYPE_CHANNEL,
-    SUPPORT_NEXT_TRACK,
-    SUPPORT_PAUSE,
-    SUPPORT_PREVIOUS_TRACK,
-    SUPPORT_TURN_OFF,
-    SUPPORT_VOLUME_MUTE,
-    SUPPORT_VOLUME_STEP,
-    SUPPORT_STOP,
-    SUPPORT_SEEK,
-    SUPPORT_SELECT_SOURCE,
-    SUPPORT_PLAY,
-    SUPPORT_TURN_ON
     )
 from homeassistant.const import (
     CONF_HOST,
@@ -57,17 +43,17 @@ ATTR_MEDIA_END_TIME = "media_end_time"
 ATTR_MEDIA_START_TIME = "media_start_time"
 
 SUPPORT_SFRTV = (
-    SUPPORT_PAUSE
-    | SUPPORT_VOLUME_MUTE
-    | SUPPORT_PREVIOUS_TRACK
-    | SUPPORT_NEXT_TRACK
-    | SUPPORT_SEEK
-    | SUPPORT_TURN_ON
-    | SUPPORT_TURN_OFF
-    | SUPPORT_STOP
-    | SUPPORT_SELECT_SOURCE
-    | SUPPORT_PLAY
-    | SUPPORT_VOLUME_STEP
+    MediaPlayerEntityFeature.PAUSE
+    | MediaPlayerEntityFeature.VOLUME_MUTE
+    | MediaPlayerEntityFeature.PREVIOUS_TRACK
+    | MediaPlayerEntityFeature.NEXT_TRACK
+    | MediaPlayerEntityFeature.SEEK
+    | MediaPlayerEntityFeature.TURN_ON
+    | MediaPlayerEntityFeature.TURN_OFF
+    | MediaPlayerEntityFeature.STOP
+    | MediaPlayerEntityFeature.SELECT_SOURCE
+    | MediaPlayerEntityFeature.PLAY
+    | MediaPlayerEntityFeature.VOLUME_STEP
 )
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend(
